@@ -69,8 +69,6 @@ class ProductController extends AbstractController
     }
 
 
-
-
     /**
      * @Route("/{id}/edit", name="product_edit", methods={"GET","POST"})
      */
@@ -96,7 +94,7 @@ class ProductController extends AbstractController
      */
     public function delete(Request $request, Product $product): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($product);
             $entityManager->flush();
@@ -108,22 +106,25 @@ class ProductController extends AbstractController
     /**
      * @Route("/addtocart/{id}", name="add_to_cart", methods={"GET","POST"})
      */
-    public function addtocart(Product $product, $id): Response
+    public function addtocart(Product $product)
     {
+        $getCart = $this->session->get('cart', []);
 
-        $getCart = $this->session->get('addtocart', []);
-
-        if(isset($getCart[$id])){
-            $getCart[$id]['aantal']++;
+        if (isset($getCart[$product->getId()])) {
+            $getCart[$product->getId()]['aantal']++;
+        } else {
+            $getCart[$product->getId()] = array(
+                'aantal' => 1,
+                'naam' => $product->getNaam(),
+                'prijs' => $product->getPrijs(),
+                'id' => $product->getId(),
+            );
         }
-        else{
-            $getCart[$id] = array('aantal' => 1);
-        }
-        $this->session->set('addtocart', $getCart);
-        var_dump($this->session->get('addtocart'));
-
+        $this->session->set('cart', $getCart);
         return $this->render('product/addtocart.html.twig', [
-            'product' => $product,
+            'product' => $getCart[$product->getId()]['naam'],
+            'aantal' => $getCart[$product->getId()]['aantal'],
+            'cart' => $getCart
         ]);
     }
 }
