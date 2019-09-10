@@ -29,8 +29,7 @@ class CheckoutController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            //Actie wanneer form is submitted
-
+            //Actie wanneer form is submitted.
 
         }
 
