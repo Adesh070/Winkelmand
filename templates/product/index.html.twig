@@ -5,28 +5,24 @@
 {% block body %}
     <h1>Product index</h1>
 
-    <table class="table">
+    <table class="table text-center">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Naam</th>
-                <th>Prijs</th>
-                <th>Afbeelding</th>
-                <th>Omschrijving</th>
-                <th>Cat_id</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th scope="col">Naam</th>
+            <th scope="col">Prijs</th>
+            <th scope="col">Afbeelding</th>
+            <th scope="col">Omschrijving</th>
+            <th scope="col">actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for product in products %}
-
             <tr>
-                <td>{{ product.id }}</td>
                 <td>{{ product.naam }}</td>
                 <td>{{ product.prijs }}</td>
                 <td>{{ product.afbeelding }}</td>
                 <td>{{ product.omschrijving }}</td>
-                <td>{{ product.catId }}</td>
+
                 <td>
                     <a href="{{ path('product_show', {'id': product.id}) }}">Show</a>
                     <a href="{{ path('product_edit', {'id': product.id}) }}">Edit</a>

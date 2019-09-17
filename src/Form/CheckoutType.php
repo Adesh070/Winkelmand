@@ -17,8 +17,7 @@ class CheckoutType extends AbstractType
         $builder
             ->add('naam', TextType::class)
             ->add('email', EmailType::class)
-            ->add('save', SubmitType::class)
-        ;
+            ->add('save', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

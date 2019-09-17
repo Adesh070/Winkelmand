@@ -3,28 +3,4 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
-    <table class="table text-center">
-        <thead>
-        <tr>
-            <th scope="col">Product</th>
-            <th scope="col">Prijs</th>
-            <th scope="col">Aantal</th>
-        </tr>
-        </thead>
-        <tbody>
-        {%   set cart_totaal = 0 %}
-        {% for array in cart %}
-            <tr>
-                <td>{{ array.naam }}</td>
-                <td>€ {{ array.prijs }}</td>
-                <td>{{ array.aantal }}</td>
-                {% set cart_totaal = cart_totaal + (array.aantal * array.prijs) %}
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <div style="text-align: center";>
-        <h3 >Totaal: € {{ cart_totaal }}</h3>
-        <a class="btn btn-primary" href="{{ path('checkout') }}" role="button">Checkout</a>
-    </div>
 {% endblock %}
